@@ -1,141 +1,360 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# 🏮 Museum Hidup Jakarta Barat
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+<div align="center">
 
-## ✨ Technology Stack
+![Jakarta Barat Heritage](https://img.shields.io/badge/Heritage-Jakarta%20Barat-red?style=for-the-badge)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=for-the-badge&logo=tailwind-css)
 
-This scaffold provides a robust foundation built with:
+**Jelajahi Warisan Budaya, Kuliner Legendaris, dan Kisah Akulturasi di Glodok**
 
-### 🎯 Core Framework
-- **⚡ Next.js 16** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
+[🚀 Demo](#) • [📖 Dokumentasi](#dokumentasi) • [🎨 Fitur](#-fitur-utama) • [💻 Instalasi](#-instalasi)
 
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
-
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
-
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Fetch** - Promise-based HTTP request
-
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
-
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
-
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
-
-## 🎯 Why This Scaffold?
-
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
-
-## 🚀 Quick Start
-
-```bash
-# Install dependencies
-bun install
-
-# Start development server
-bun run dev
-
-# Build for production
-bun run build
-
-# Start production server
-bun start
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
-
-## 🤖 Powered by Z.ai
-
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
-
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
-
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
-```
-
-## 🎨 Available Features & Components
-
-This scaffold includes a comprehensive set of modern web development tools:
-
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
-
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
-
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
-
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Fetch + TanStack Query
-- **State Management**: Simple and scalable with Zustand
-
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
-
-## 🤝 Get Started with Z.ai
-
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+</div>
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+## � Tentang Proyek
+
+**Museum Hidup Jakarta Barat** adalah platform digital interaktif yang mengajak Anda menjelajahi Glodok dan kawasan Jakarta Barat bukan sekadar sebagai tempat wisata kuliner, tetapi sebagai **museum yang hidup** - tempat di mana sejarah, budaya, dan tradisi masih bernapas di setiap sudutnya.
+
+### 🎯 Misi Kami
+
+- **🏛️ Melestarikan Warisan Budaya** - Mendokumentasikan dan mempromosikan warisan budaya Tionghoa-Indonesia
+- **� Mengangkat Kuliner Legendaris** - Memperkenalkan kuliner turun-temurun yang penuh cerita
+- **🤝 Merayakan Toleransi** - Menampilkan harmoni dan akulturasi budaya yang indah
+- **📚 Edukasi Interaktif** - Memberikan pengalaman belajar yang menyenangkan tentang sejarah lokal
+
+---
+
+## ✨ Fitur Utama
+
+### 🏛️ **Museum Hidup**
+Konsep unik yang menghadirkan Glodok sebagai museum terbuka dengan:
+- **Akulturasi Budaya** - Kisah perpaduan kuliner Tionghoa dan rempah Nusantara
+- **Toleransi & Harmoni** - Cerita kerukunan antar budaya dan agama
+- **Arsitektur Bersejarah** - Eksplorasi bangunan kolonial dan gaya Indische
+
+### 📜 **Jejak Masa Lalu**
+Timeline interaktif sejarah Glodok dari tahun 1610 hingga era modern:
+- Timeline visual dengan animasi smooth
+- Fakta-fakta unik tentang Glodok
+- Profil arsitektur khas Tionghoa-Belanda
+
+### 🍜 **Peta Rasa Kuliner**
+Katalog lengkap kuliner legendaris dengan:
+- **Kuliner Halal** - Cempedak Goreng, Gado-Gado Direksi, Rujak Shanghai, Kopi Es Tak Kie
+- **The Old Masters** - Kuliner non-halal turun-temurun 3-4 generasi
+- Rating, harga, lokasi, dan cerita di balik setiap hidangan
+- Fitur favorit untuk menyimpan kuliner pilihan
+
+### 👥 **Wajah Jakarta**
+Profil pedagang legendaris dengan:
+- Kisah hidup dan dedikasi mereka
+- Quote inspiratif tentang warisan budaya
+- Foto dan informasi toko mereka
+
+### �️ **Panduan Jelajah**
+Rute jalan kaki yang telah dirancang:
+- **Heritage Walk (1 jam)** - Fokus arsitektur dan sejarah
+- **Culinary Adventure (2 jam)** - Wisata kuliner lengkap
+- Informasi transportasi (TransJakarta, KRL, Ojol, Mobil Pribadi)
+
+### 📖 **Kamus Budaya**
+Glosarium istilah budaya Tionghoa-Indonesia:
+- Ciam Si, Pecinan, Cap Go Meh, Sekba, dan lainnya
+- Penjelasan konteks penggunaan
+- Membantu pemahaman budaya lokal
+
+### 💰 **Estimasi Budget**
+Kalkulator budget wisata:
+- **Paket Pelajar Hemat** (Rp 50.000)
+- **Paket Kenyang Sultan** (Rp 150.000)
+- Tips hemat dan rekomendasi
+
+### 📸 **Galeri Foto**
+Koleksi foto berkualitas tinggi:
+- Lightbox interaktif
+- Foto arsitektur, festival, dan kehidupan sehari-hari
+- Optimasi gambar dengan Sharp
+
+---
+
+## 🛠️ Teknologi
+
+### 🎯 Core Framework
+- **⚡ Next.js 16** - React framework dengan App Router
+- **📘 TypeScript 5** - Type-safe development
+- **� Tailwind CSS 4** - Utility-first CSS framework
+
+### 🧩 UI & Animasi
+- **� Framer Motion** - Smooth animations & transitions
+- **🎨 shadcn/ui** - High-quality accessible components
+- **🎯 Lucide React** - Beautiful icon library
+- **🌈 Radix UI** - Unstyled, accessible components
+
+### 📊 Data & State Management
+- **� Zustand** - Lightweight state management
+- **� TanStack Query** - Data fetching & caching
+- **�️ Prisma** - Type-safe ORM
+
+### 🎨 Advanced Features
+- **📊 Recharts** - Data visualization
+- **📅 Date-fns** - Date utilities
+- **🖼️ Sharp** - Image optimization
+- **🎣 React Hook Form + Zod** - Form validation
+
+---
+
+## 🚀 Instalasi
+
+### Prasyarat
+- **Bun** >= 1.3.4 (atau Node.js >= 18)
+- **Git**
+
+### Langkah Instalasi
+
+```bash
+# 1. Clone repository
+git clone https://github.com/username/jakbar-mulok4.git
+cd jakbar-mulok4
+
+# 2. Install dependencies
+bun install
+
+# 3. Setup database (opsional)
+bun run db:push
+
+# 4. Jalankan development server
+bun run dev
+```
+
+Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
+
+### Build untuk Production
+
+```bash
+# Build aplikasi
+bun run build
+
+# Jalankan production server
+bun start
+```
+
+---
+
+## 📁 Struktur Proyek
+
+```
+jakbar-mulok4/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── page.tsx           # Homepage utama
+│   │   └── layout.tsx         # Root layout
+│   ├── components/            # React components
+│   │   └── ui/               # shadcn/ui components
+│   ├── hooks/                # Custom React hooks
+│   └── lib/                  # Utilities & configs
+├── public/
+│   └── images/               # Asset gambar
+├── prisma/                   # Database schema
+├── package.json
+└── README.md
+```
+
+---
+
+## 🎨 Fitur Interaktif
+
+### ✨ Animasi & Transisi
+- **Parallax scrolling** pada hero section
+- **Fade-in animations** saat scroll ke section
+- **Hover effects** pada cards dan buttons
+- **Smooth transitions** antar halaman
+
+### 🎯 User Experience
+- **Sticky navigation** dengan active state indicator
+- **Mobile-responsive** dengan hamburger menu
+- **Lightbox gallery** untuk foto
+- **Favorite system** untuk menyimpan kuliner favorit
+- **Smooth scroll** ke section tertentu
+
+### 📱 Mobile-First Design
+- Responsive di semua ukuran layar
+- Touch-friendly interactions
+- Optimized images untuk mobile
+- Fast loading dengan lazy loading
+
+---
+
+## 🎨 Desain & Tema
+
+### 🎨 Color Palette
+- **Primary**: Red-Orange gradient (`from-red-600 to-orange-600`)
+- **Secondary**: Green-Teal gradient (`from-green-600 to-teal-600`)
+- **Background**: Warm gradients (`from-orange-50 via-white to-red-50`)
+- **Accent**: Gold untuk elemen budaya Tionghoa
+
+### 🖼️ Visual Identity
+- **Ikon**: Lucide React dengan tema heritage
+- **Typography**: System fonts dengan hierarchy yang jelas
+- **Imagery**: Foto berkualitas tinggi dari Glodok
+- **Spacing**: Generous whitespace untuk readability
+
+---
+
+## 📖 Dokumentasi
+
+### Navigasi Utama
+- **Beranda** - Hero section dengan CTA
+- **Jelajahi** - Museum Hidup, Jejak Masa Lalu, Wajah Jakarta
+- **Kuliner** - Peta Rasa dengan katalog lengkap
+- **Panduan** - Panduan Jelajah, Kamus Budaya, Estimasi Budget
+- **Galeri** - Koleksi foto
+- **Kontak** - Informasi kontak
+
+### Data Kuliner
+Setiap item kuliner memiliki:
+```typescript
+{
+  id: string
+  name: string
+  description: string
+  price: number
+  rating: number
+  location: string
+  image: string
+  isHalal: boolean
+  story: string
+  generations?: number  // untuk Old Masters
+}
+```
+
+### Rute Jalan Kaki
+```typescript
+{
+  id: number
+  name: string
+  duration: string
+  distance: string
+  stops: string[]
+  highlights: string[]
+  bestTime: string
+  image: string
+}
+```
+
+---
+
+## 🤝 Kontribusi
+
+Kami sangat terbuka untuk kontribusi! Jika Anda ingin berkontribusi:
+
+1. Fork repository ini
+2. Buat branch fitur (`git checkout -b feature/AmazingFeature`)
+3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request
+
+### Ide Kontribusi
+- 🗺️ Menambah rute jalan kaki baru
+- 🍜 Menambah data kuliner legendaris
+- 📸 Kontribusi foto berkualitas tinggi
+- 🌐 Terjemahan ke bahasa lain
+- 🎨 Perbaikan UI/UX
+
+---
+
+## 📝 Scripts
+
+```bash
+# Development
+bun run dev          # Jalankan dev server di port 3000
+
+# Build
+bun run build        # Build untuk production
+
+# Production
+bun start            # Jalankan production server
+
+# Database
+bun run db:push      # Push schema ke database
+bun run db:generate  # Generate Prisma Client
+bun run db:migrate   # Jalankan migrations
+bun run db:reset     # Reset database
+
+# Linting
+bun run lint         # Jalankan ESLint
+```
+
+---
+
+## 🌟 Roadmap
+
+### Phase 1 (Current) ✅
+- [x] Landing page dengan hero section
+- [x] Katalog kuliner halal & non-halal
+- [x] Timeline sejarah interaktif
+- [x] Profil pedagang legendaris
+- [x] Panduan rute jalan kaki
+- [x] Kamus budaya
+- [x] Estimasi budget
+- [x] Galeri foto dengan lightbox
+
+### Phase 2 (Coming Soon) 🚧
+- [ ] Integrasi Google Maps untuk navigasi
+- [ ] Sistem booking tour guide
+- [ ] Review & rating dari pengunjung
+- [ ] Blog artikel tentang sejarah & budaya
+- [ ] Augmented Reality (AR) untuk heritage tour
+- [ ] Multi-language support (EN, CN)
+
+### Phase 3 (Future) 🔮
+- [ ] Mobile app (React Native)
+- [ ] Virtual tour 360°
+- [ ] Podcast cerita pedagang legendaris
+- [ ] E-commerce untuk oleh-oleh khas
+- [ ] Kolaborasi dengan Dinas Pariwisata DKI
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE) untuk detail.
+
+---
+
+## 👥 Tim
+
+Dikembangkan dengan ❤️ oleh tim yang peduli dengan pelestarian warisan budaya Jakarta Barat.
+
+---
+
+## 📞 Kontak
+
+- **Email**: info@museumhidupjakbar.id
+- **Instagram**: [@museumhidupjakbar](https://instagram.com/museumhidupjakbar)
+- **Website**: [www.museumhidupjakbar.id](https://museumhidupjakbar.id)
+
+---
+
+## 🙏 Acknowledgments
+
+Terima kasih kepada:
+- **Para pedagang legendaris Glodok** yang telah menjaga warisan budaya
+- **Komunitas Jakarta Barat** yang mendukung pelestarian budaya
+- **Fotografer** yang berkontribusi foto-foto indah
+- **Open source community** untuk tools dan libraries yang luar biasa
+
+---
+
+<div align="center">
+
+**🏮 Museum Hidup Jakarta Barat 🏮**
+
+*Jelajahi Warisan, Rasakan Sejarah, Rayakan Keberagaman*
+
+[![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge)](https://github.com/username/jakbar-mulok4)
+
+</div>

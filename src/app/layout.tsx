@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   keywords: ["Jakarta Barat", "Chinatown", "Glodok", "Kuliner Legendaris", "Wisata Jakarta", "Pecinan", "Kuliner Indonesia"],
   authors: [{ name: "Jakarta Tourism Board" }],
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/logo.svg",
   },
   openGraph: {
     title: "Jakarta Barat - Pusat Chinatown & Kuliner Legendaris",
