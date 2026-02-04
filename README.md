@@ -319,12 +319,6 @@ bun run lint         # Jalankan ESLint
 
 ---
 
-## 📄 Lisensi
-
-Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE) untuk detail.
-
----
-
 ## 👥 Tim
 
 Dikembangkan dengan ❤️ oleh tim yang peduli dengan pelestarian warisan budaya Jakarta Barat.
