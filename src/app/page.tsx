@@ -540,7 +540,7 @@ export default function JakartaWestTourism() {
                   <button
                     key={group.id}
                     onClick={() => scrollToSection(group.id)}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 ${activeSection === group.id
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 cursor-pointer ${activeSection === group.id
                       ? 'bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-md'
                       : 'text-gray-700 hover:bg-orange-100'
                       }`}
@@ -552,7 +552,7 @@ export default function JakartaWestTourism() {
                   <DropdownMenu key={index}>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 ${group.items.some(item => activeSection === item.id)
+                        className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 cursor-pointer ${group.items.some(item => activeSection === item.id)
                           ? 'bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-md'
                           : 'text-gray-700 hover:bg-orange-100'
                           }`}
@@ -583,7 +583,7 @@ export default function JakartaWestTourism() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-orange-100 transition-colors"
+              className="lg:hidden p-2 rounded-lg hover:bg-orange-100 transition-colors cursor-pointer"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -604,7 +604,7 @@ export default function JakartaWestTourism() {
                   <button
                     key={link.id}
                     onClick={() => scrollToSection(link.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 ${activeSection === link.id
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer ${activeSection === link.id
                       ? 'bg-gradient-to-r from-red-600 to-orange-600 text-white'
                       : 'text-gray-700 hover:bg-orange-100'
                       }`}
@@ -681,7 +681,7 @@ export default function JakartaWestTourism() {
             <Button
               onClick={() => scrollToSection('museum-hidup')}
               size="lg"
-              className="px-6 py-5 text-base bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 shadow-2xl rounded-full"
+              className="px-6 py-5 text-base bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 shadow-2xl rounded-full cursor-pointer"
             >
               Mulai Eksplorasi
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -690,7 +690,7 @@ export default function JakartaWestTourism() {
               onClick={() => scrollToSection('peta-rasa')}
               size="lg"
               variant="outline"
-              className="px-6 py-5 text-base border-2 border-white text-gray-200 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full"
+              className="px-6 py-5 text-base border-2 border-white text-gray-200 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full cursor-pointer"
 
             >
               <Utensils className="mr-2 h-5 w-5" />
@@ -1018,7 +1018,7 @@ export default function JakartaWestTourism() {
                       />
                       <button
                         onClick={() => toggleFavorite(item.id)}
-                        className="absolute top-2 right-2 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300"
+                        className="absolute top-2 right-2 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 cursor-pointer"
                       >
                         <Heart
                           className={`h-4 w-4 ${favorites.has(item.id) ? 'fill-red-500 text-red-500' : 'text-gray-600'
@@ -1559,7 +1559,7 @@ export default function JakartaWestTourism() {
             <Button
               onClick={() => setBudgetType('pelajar')}
               variant={budgetType === 'pelajar' ? 'default' : 'outline'}
-              className={`px-6 py-3 ${budgetType === 'pelajar'
+              className={`px-6 py-3 cursor-pointer ${budgetType === 'pelajar'
                 ? 'bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700'
                 : 'border-green-600 text-green-600 hover:bg-green-50'
                 }`}
@@ -1570,7 +1570,7 @@ export default function JakartaWestTourism() {
             <Button
               onClick={() => setBudgetType('sultan')}
               variant={budgetType === 'sultan' ? 'default' : 'outline'}
-              className={`px-6 py-3 ${budgetType === 'sultan'
+              className={`px-6 py-3 cursor-pointer ${budgetType === 'sultan'
                 ? 'bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700'
                 : 'border-red-600 text-red-600 hover:bg-red-50'
                 }`}
@@ -1884,7 +1884,7 @@ export default function JakartaWestTourism() {
             />
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
+              className="absolute top-4 right-4 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors cursor-pointer"
             >
               <X className="h-6 w-6 text-white" />
             </button>
