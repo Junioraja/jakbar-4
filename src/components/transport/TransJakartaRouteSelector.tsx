@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { transjakartaOrigins } from '@/data/transjakartaOrigins'
 import { transjakartaRoutes, getRoutesByOrigin } from '@/data/transjakartaRoutes'
 import { getCorridorColor } from '@/data/corridorColors'
+import { saveRoute, getLastRoute } from '@/utils/routeHistory'
 
 export default function TransJakartaRouteSelector() {
   const [selectedOrigin, setSelectedOrigin] = useState('harmoni')
@@ -20,6 +21,27 @@ export default function TransJakartaRouteSelector() {
   }, [availableRoutes, selectedRouteId])
 
   const selectedOriginData = transjakartaOrigins.find(o => o.id === selectedOrigin)
+
+  // Auto-load last saved route on mount
+  useEffect(() => {
+    const lastRoute = getLastRoute()
+    if (lastRoute && lastRoute.transport === 'transjakarta') {
+      setSelectedOrigin(lastRoute.origin)
+      setSelectedRouteId(lastRoute.routeId)
+    }
+  }, [])
+
+  // Save route to history whenever origin or routeId changes
+  useEffect(() => {
+    if (selectedOriginData && selectedRoute) {
+      saveRoute({
+        transport: 'transjakarta',
+        origin: selectedOrigin,
+        routeId: selectedRouteId,
+        label: `TJ • ${selectedOriginData.name} → Glodok (${selectedRoute.title})`
+      })
+    }
+  }, [selectedOrigin, selectedRouteId, selectedOriginData, selectedRoute])
 
   const handleOriginChange = (originId: string) => {
     setSelectedOrigin(originId)

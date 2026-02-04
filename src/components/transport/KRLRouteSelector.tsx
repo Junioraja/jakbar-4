@@ -1,10 +1,11 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { krlOrigins } from '@/data/krlOrigins'
 import { krlRoutes, getKrlRoutesByOrigin } from '@/data/krlRoutes'
 import { getKrlLineColor } from '@/data/krlLineColors'
 import { ChevronDown } from 'lucide-react'
+import { saveRoute, getLastRoute } from '@/utils/routeHistory'
 
 export default function KRLRouteSelector() {
   const [selectedOrigin, setSelectedOrigin] = useState('bogor')
@@ -18,6 +19,26 @@ export default function KRLRouteSelector() {
   }
 
   const selectedRoute = useMemo(() => availableRoutes.find(r => r.id === selectedRouteId) || availableRoutes[0], [availableRoutes, selectedRouteId])
+  const selectedOriginLabel = krlOrigins.find(o => o.id === selectedOrigin)?.label || 'Bogor'
+
+  // Auto-load last saved route on mount
+  useEffect(() => {
+    const lastRoute = getLastRoute()
+    if (lastRoute && lastRoute.transport === 'krl') {
+      setSelectedOrigin(lastRoute.origin)
+      setSelectedRouteId(lastRoute.routeId)
+    }
+  }, [])
+
+  // Save route to history whenever origin or routeId changes
+  useEffect(() => {
+    saveRoute({
+      transport: 'krl',
+      origin: selectedOrigin,
+      routeId: selectedRouteId,
+      label: `KRL • ${selectedOriginLabel} → Jakarta Kota (${selectedRoute?.title})`
+    })
+  }, [selectedOrigin, selectedRouteId, selectedRoute, selectedOriginLabel])
 
   const handleOriginChange = (id: string) => {
     setSelectedOrigin(id)
