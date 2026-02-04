@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Badge } from '@/components/ui/badge'
@@ -48,7 +49,8 @@ import {
   GraduationCap,
   ChevronDown,
   Home,
-  Compass
+  Compass,
+  Search
 } from 'lucide-react'
 import TransportList from '@/components/TransportList'
 
@@ -61,6 +63,8 @@ export default function JakartaWestTourism() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set())
   const [budgetType, setBudgetType] = useState<'pelajar' | 'sultan'>('pelajar')
   const [selectedRoute, setSelectedRoute] = useState<number | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
   const { scrollY } = useScroll()
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0])
   const heroScale = useTransform(scrollY, [0, 500], [1, 1.1])
@@ -1431,33 +1435,73 @@ export default function JakartaWestTourism() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               Kamus Kecil
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
               Istilah-istilah unik yang perlu Anda ketahui saat menjelajahi Glodok
             </p>
+
+            <div className="max-w-md mx-auto relative mb-12">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Input
+                type="text"
+                placeholder="Cari istilah..."
+                className="pl-10 border-purple-200 focus:border-purple-500 focus:ring-purple-500"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {glossaryTerms.map((term, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-              >
-                <Card className="h-full hover:shadow-xl transition-all border-purple-200">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg text-purple-700">{term.term}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-700 mb-2">{term.meaning}</p>
-                    <div className="bg-purple-50 p-2 rounded-lg">
-                      <p className="text-xs text-purple-600 italic">{term.context}</p>
+            {glossaryTerms
+              .filter(term =>
+                term.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                term.meaning.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((term, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  className="h-64 [perspective:1000px]"
+                >
+                  <motion.div
+                    className="relative w-full h-full [transform-style:preserve-3d] cursor-pointer shadow-xl rounded-xl transition-all duration-500 border-purple-200 border"
+                    animate={{ rotateY: flippedCards.has(index) ? 180 : 0 }}
+                    transition={{ duration: 0.6, type: "spring", stiffness: 260, damping: 20 }}
+                    onClick={() => {
+                      const newFlipped = new Set(flippedCards)
+                      if (newFlipped.has(index)) {
+                        newFlipped.delete(index)
+                      } else {
+                        newFlipped.add(index)
+                      }
+                      setFlippedCards(newFlipped)
+                    }}
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
+                    {/* Front Side */}
+                    <div className="absolute inset-0 [backface-visibility:hidden] flex flex-col items-center justify-center p-6 bg-white rounded-xl">
+                      <BookOpen className="h-12 w-12 text-purple-200 mb-4" />
+                      <h3 className="text-xl font-bold text-purple-700 text-center">{term.term}</h3>
+                      <p className="text-xs text-gray-400 mt-4 text-center absolute bottom-6">Klik untuk melihat arti</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+
+                    {/* Back Side */}
+                    <div
+                      className="absolute inset-0 [backface-visibility:hidden] flex flex-col justify-center p-6 bg-purple-600 rounded-xl text-white"
+                      style={{ transform: 'rotateY(180deg)' }}
+                    >
+                      <h3 className="text-lg font-bold mb-2 border-b border-purple-400 pb-2">{term.term}</h3>
+                      <p className="text-sm mb-3 font-medium">{term.meaning}</p>
+                      <div className="bg-purple-700/50 p-2 rounded-lg">
+                        <p className="text-xs italic opacity-90">{term.context}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))}
           </div>
         </div>
       </section>
