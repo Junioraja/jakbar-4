@@ -45,7 +45,7 @@ export default function TransportModal({ data, onClose }: { data: TransportData 
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 flex-shrink-0"
+              className="text-gray-400 hover:text-gray-600 flex-shrink-0 cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
@@ -101,7 +101,7 @@ export default function TransportModal({ data, onClose }: { data: TransportData 
                 </a>
                 <button
                   onClick={onClose}
-                  className="flex-1 border py-2 rounded-xl hover:bg-gray-50 transition"
+                  className="flex-1 border py-2 rounded-xl hover:bg-gray-50 transition cursor-pointer"
                 >
                   Tutup
                 </button>
