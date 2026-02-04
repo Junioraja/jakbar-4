@@ -50,6 +50,7 @@ import {
   Home,
   Compass
 } from 'lucide-react'
+import TransportModal from '@/components/TransportModal'
 
 
 export default function JakartaWestTourism() {
@@ -60,6 +61,7 @@ export default function JakartaWestTourism() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set())
   const [budgetType, setBudgetType] = useState<'pelajar' | 'sultan'>('pelajar')
   const [selectedRoute, setSelectedRoute] = useState<number | null>(null)
+  const [transportModal, setTransportModal] = useState<any | null>(null)
   const { scrollY } = useScroll()
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0])
   const heroScale = useTransform(scrollY, [0, 500], [1, 1.1])
@@ -472,7 +474,13 @@ export default function JakartaWestTourism() {
       description: 'Turun di Halte Glodok, jalan kaki 5 menit ke area Pecinan',
       cost: 'Rp 3.500',
       time: '30-45 menit dari pusat kota',
-      color: 'bg-blue-500'
+      color: 'bg-blue-500',
+      dropoffLocation: 'Halte Glodok',
+      steps: [
+        'Naik TransJakarta menuju Halte Glodok',
+        'Turun di Halte Glodok',
+        'Jalan kaki ±5 menit ke kawasan Pecinan'
+      ]
     },
     {
       type: 'KRL Commuter Line',
@@ -480,7 +488,13 @@ export default function JakartaWestTourism() {
       description: 'Turun di Stasiun Kota, jalan kaki 10 menit',
       cost: 'Rp 3.000 - Rp 5.000',
       time: '20-30 menit dari Stasiun Manggarai',
-      color: 'bg-red-500'
+      color: 'bg-red-500',
+      dropoffLocation: 'Stasiun Jakarta Kota',
+      steps: [
+        'Naik KRL tujuan Jakarta Kota',
+        'Turun di Stasiun Jakarta Kota',
+        'Jalan kaki ±10 menit ke Pecinan Glodok'
+      ]
     },
     {
       type: 'Ojek Online',
@@ -488,7 +502,12 @@ export default function JakartaWestTourism() {
       description: 'Titik jemput fleksibel, bisa langsung di depan lokasi',
       cost: 'Rp 15.000 - Rp 30.000',
       time: '15-30 menit tergantung kemacetan',
-      color: 'bg-green-500'
+      color: 'bg-green-500',
+      dropoffLocation: 'Pecinan Glodok',
+      steps: [
+        'Masukkan tujuan Pecinan Glodok',
+        'Ikuti rute tercepat ke lokasi'
+      ]
     },
     {
       type: 'Kendaraan Pribadi',
@@ -496,7 +515,13 @@ export default function JakartaWestTourism() {
       description: 'Parkir di gedung sekitar, tersedia area parkir berbayar',
       cost: 'Rp 10.000 - Rp 20.000/jam',
       time: '30-60 menit tergantung kemacetan',
-      color: 'bg-orange-500'
+      color: 'bg-orange-500',
+      dropoffLocation: 'Pecinan Glodok (Area Parkir)',
+      steps: [
+        'Masukkan tujuan Pecinan Glodok di GPS',
+        'Ikuti rute ke lokasi parkir terdekat',
+        'Jalan kaki ke Pecinan Glodok'
+      ]
     },
   ]
 
@@ -1309,7 +1334,7 @@ export default function JakartaWestTourism() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Card className="h-full hover:shadow-xl transition-all border-blue-200">
+                  <Card onClick={() => setTransportModal(option)} className="h-full hover:shadow-xl transition-all border-blue-200 cursor-pointer">
                     <CardHeader className="pb-3">
                       <div className={`w-12 h-12 ${option.color} rounded-full flex items-center justify-center mb-3`}>
                         <span className="text-white">{option.icon}</span>
@@ -1329,11 +1354,16 @@ export default function JakartaWestTourism() {
                         </div>
                       </div>
                     </CardContent>
+                    <div className="p-4 pt-0">
+                      <p className="mt-2 text-blue-600 text-sm font-medium">Lihat Rute →</p>
+                    </div>
                   </Card>
                 </motion.div>
               ))}
             </div>
           </motion.div>
+
+          <TransportModal data={transportModal} onClose={() => setTransportModal(null)} />
 
           {/* Rute Jalan Kaki */}
           <motion.div
