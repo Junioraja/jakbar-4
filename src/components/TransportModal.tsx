@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import TransJakartaRouteSelector from './transport/TransJakartaRouteSelector'
+import KRLRouteSelector from './transport/KRLRouteSelector'
 
 interface TransportData {
   id: string
@@ -50,9 +51,11 @@ export default function TransportModal({ data, onClose }: { data: TransportData 
             </button>
           </div>
 
-          {/* TransJakarta Special Handler */}
+          {/* Special handlers: TransJakarta & KRL */}
           {data.id === 'transjakarta' ? (
             <TransJakartaRouteSelector />
+          ) : data.id === 'krl' ? (
+            <KRLRouteSelector />
           ) : (
             <>
               {/* MAP */}
