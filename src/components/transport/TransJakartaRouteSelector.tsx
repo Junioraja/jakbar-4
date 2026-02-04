@@ -39,7 +39,7 @@ export default function TransJakartaRouteSelector() {
         </label>
         <button
           onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-300 rounded-lg hover:border-gray-400 transition"
+          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-300 rounded-lg hover:border-gray-400 transition cursor-pointer"
         >
           <div className="text-left">
             <p className="font-medium text-gray-900">{selectedOriginData?.name}</p>
@@ -54,9 +54,8 @@ export default function TransJakartaRouteSelector() {
               <button
                 key={origin.id}
                 onClick={() => handleOriginChange(origin.id)}
-                className={`w-full text-left px-4 py-3 border-b border-gray-100 hover:bg-blue-50 transition ${
-                  selectedOrigin === origin.id ? 'bg-blue-100' : ''
-                }`}
+                className={`w-full text-left px-4 py-3 border-b border-gray-100 hover:bg-blue-50 transition cursor-pointer ${selectedOrigin === origin.id ? 'bg-blue-100' : ''
+                  }`}
               >
                 <p className="font-medium text-gray-900">{origin.name}</p>
                 <p className="text-xs text-gray-600">{origin.description}</p>
@@ -77,11 +76,10 @@ export default function TransJakartaRouteSelector() {
               <button
                 key={route.id}
                 onClick={() => setSelectedRouteId(route.id)}
-                className={`flex-shrink-0 px-4 py-2 rounded-lg border-2 transition whitespace-nowrap ${
-                  selectedRouteId === route.id
+                className={`flex-shrink-0 px-4 py-2 rounded-lg border-2 transition whitespace-nowrap cursor-pointer ${selectedRouteId === route.id
                     ? 'border-blue-600 bg-blue-50 text-blue-700'
                     : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
-                }`}
+                  }`}
               >
                 <p className="text-sm font-medium">{route.title}</p>
                 <p className="text-xs text-gray-600">{route.subtitle}</p>

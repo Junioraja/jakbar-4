@@ -28,7 +28,7 @@ export default function KRLRouteSelector() {
     <div className="space-y-4">
       <div className="relative">
         <label className="block text-sm font-semibold text-gray-900 mb-2">Saya naik KRL dari:</label>
-        <button onClick={() => setDropdownOpen(!dropdownOpen)} className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-300 rounded-lg">
+        <button onClick={() => setDropdownOpen(!dropdownOpen)} className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-300 rounded-lg cursor-pointer">
           <div className="text-left">
             <p className="font-medium text-gray-900">{krlOrigins.find(o => o.id === selectedOrigin)?.label}</p>
           </div>
@@ -37,7 +37,7 @@ export default function KRLRouteSelector() {
         {dropdownOpen && (
           <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-20 max-h-56 overflow-y-auto">
             {krlOrigins.map(o => (
-              <button key={o.id} onClick={() => handleOriginChange(o.id)} className={`w-full text-left px-4 py-3 hover:bg-blue-50 ${selectedOrigin === o.id ? 'bg-blue-100' : ''}`}>
+              <button key={o.id} onClick={() => handleOriginChange(o.id)} className={`w-full text-left px-4 py-3 hover:bg-blue-50 cursor-pointer ${selectedOrigin === o.id ? 'bg-blue-100' : ''}`}>
                 <div className="font-medium">{o.label}</div>
                 <div className="text-xs text-gray-600">{o.routes.join(', ')}</div>
               </button>
@@ -50,7 +50,7 @@ export default function KRLRouteSelector() {
         <label className="block text-sm font-semibold text-gray-900 mb-2">Pilih Rute</label>
         <div className="flex gap-2 overflow-x-auto pb-2">
           {availableRoutes.map(route => (
-            <button key={route.id} onClick={() => setSelectedRouteId(route.id)} className={`flex-shrink-0 px-4 py-2 rounded-lg border-2 whitespace-nowrap ${selectedRouteId === route.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white border-gray-300'}`}>
+            <button key={route.id} onClick={() => setSelectedRouteId(route.id)} className={`flex-shrink-0 px-4 py-2 rounded-lg border-2 whitespace-nowrap cursor-pointer ${selectedRouteId === route.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white border-gray-300'}`}>
               <div className="text-sm font-medium">{route.title}</div>
               <div className="text-xs text-gray-600">{route.desc}</div>
             </button>
