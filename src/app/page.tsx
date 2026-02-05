@@ -53,6 +53,7 @@ import {
   Search
 } from 'lucide-react'
 import TransportList from '@/components/TransportList'
+import BudgetCalculator from '@/components/BudgetCalculator'
 
 
 export default function JakartaWestTourism() {
@@ -61,7 +62,6 @@ export default function JakartaWestTourism() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [favorites, setFavorites] = useState<Set<string>>(new Set())
-  const [budgetType, setBudgetType] = useState<'pelajar' | 'sultan'>('pelajar')
   const [selectedRoute, setSelectedRoute] = useState<number | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
@@ -418,41 +418,6 @@ export default function JakartaWestTourism() {
       context: 'Vihara Dharma Bhakti adalah vihara tertua di Jakarta'
     },
   ]
-
-  // Data Budget
-  const budgetPackages = {
-    pelajar: {
-      name: 'Paket Pelajar Hemat',
-      total: 50000,
-      items: [
-        { name: 'Cakwe Goreng', price: 10000 },
-        { name: 'Es Tebu Segar', price: 12000 },
-        { name: 'Mie Kangkung', price: 15000 },
-        { name: 'Kopi Es', price: 13000 },
-      ],
-      tips: [
-        'Datang pagi untuk harga lebih murah',
-        'Bagi-bagi jajan dengan teman',
-        'Bawa botol air sendiri'
-      ]
-    },
-    sultan: {
-      name: 'Paket Kenyang Sultan',
-      total: 150000,
-      items: [
-        { name: 'Nasi Campur Komplit', price: 35000 },
-        { name: 'Bakmi Spesial', price: 30000 },
-        { name: 'Manisan Kering (oleh-oleh)', price: 40000 },
-        { name: 'Kopi Premium', price: 25000 },
-        { name: 'Cemilan Aneka', price: 20000 },
-      ],
-      tips: [
-        'Coba semua menu legendaris',
-        'Beli oleh-oleh untuk keluarga',
-        'Nikmati suasana resto bersejarah'
-      ]
-    }
-  }
 
   // Data Gallery
   const galleryImages = [
@@ -1507,115 +1472,7 @@ export default function JakartaWestTourism() {
       </section>
 
       {/* Budget Calculator Section */}
-      <section id="budget" className="py-16 bg-gradient-to-b from-orange-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <Badge className="mb-3 px-4 py-1 bg-yellow-100 text-yellow-700 font-semibold text-sm">
-              Fitur Unik
-            </Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Berapa Uang Saku Saya?
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Estimasi budget pelajar vs budget sultan untuk menjelajahi Glodok
-            </p>
-          </motion.div>
-
-          {/* Budget Type Selector */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex justify-center gap-4 mb-8"
-          >
-            <Button
-              onClick={() => setBudgetType('pelajar')}
-              variant={budgetType === 'pelajar' ? 'default' : 'outline'}
-              className={`px-6 py-3 cursor-pointer ${budgetType === 'pelajar'
-                ? 'bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700'
-                : 'border-green-600 text-green-600 hover:bg-green-50'
-                }`}
-            >
-              <GraduationCap className="mr-2 h-5 w-5" />
-              Paket Pelajar
-            </Button>
-            <Button
-              onClick={() => setBudgetType('sultan')}
-              variant={budgetType === 'sultan' ? 'default' : 'outline'}
-              className={`px-6 py-3 cursor-pointer ${budgetType === 'sultan'
-                ? 'bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700'
-                : 'border-red-600 text-red-600 hover:bg-red-50'
-                }`}
-            >
-              <Wallet className="mr-2 h-5 w-5" />
-              Paket Sultan
-            </Button>
-          </motion.div>
-
-          {/* Budget Details */}
-          <motion.div
-            key={budgetType}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
-          >
-            <Card className="shadow-2xl border-2 overflow-hidden">
-              <CardHeader className={`${budgetType === 'pelajar' ? 'bg-gradient-to-r from-green-600 to-teal-600' : 'bg-gradient-to-r from-red-600 to-orange-600'
-                } text-white`}>
-                <CardTitle className="text-2xl md:text-3xl">
-                  {budgetPackages[budgetType].name}
-                </CardTitle>
-                <div className="flex items-center gap-2 mt-2">
-                  <DollarSign className="h-6 w-6" />
-                  <span className="text-4xl font-bold">
-                    {formatPrice(budgetPackages[budgetType].total)}
-                  </span>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <Utensils className="h-5 w-5 text-orange-600" />
-                      Item yang Didapatkan:
-                    </h4>
-                    <div className="space-y-2">
-                      {budgetPackages[budgetType].items.map((item, index) => (
-                        <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                          <span className="text-sm font-medium text-gray-700">{item.name}</span>
-                          <span className="text-sm font-bold text-orange-600">{formatPrice(item.price)}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-yellow-600" />
-                      Tips Hemat:
-                    </h4>
-                    <div className="space-y-2">
-                      {budgetPackages[budgetType].tips.map((tip, index) => (
-                        <div key={index} className="flex items-start gap-2 p-3 bg-yellow-50 rounded-lg">
-                          <div className="w-2 h-2 bg-yellow-600 rounded-full mt-2 flex-shrink-0" />
-                          <p className="text-sm text-gray-700">{tip}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
+      <BudgetCalculator />
 
       {/* Gallery Section */}
       <section id="gallery" className="py-16 bg-white">
