@@ -54,6 +54,9 @@ import {
 } from 'lucide-react'
 import TransportList from '@/components/TransportList'
 import BudgetCalculator from '@/components/BudgetCalculator'
+import AdventureMode from '@/components/AdventureMode'
+import AchievementShowcase from '@/components/AchievementShowcase'
+import Link from 'next/link'
 
 
 export default function JakartaWestTourism() {
@@ -65,6 +68,7 @@ export default function JakartaWestTourism() {
   const [selectedRoute, setSelectedRoute] = useState<number | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
+  const [adventureModeOpen, setAdventureModeOpen] = useState(false)
   const { scrollY } = useScroll()
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0])
   const heroScale = useTransform(scrollY, [0, 500], [1, 1.1])
@@ -524,6 +528,12 @@ export default function JakartaWestTourism() {
               ))}
             </div>
 
+            {/* Patch Notes Link - Desktop */}
+            <Link href="/patch-notes" className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-yellow-100 text-gray-700" title="Lihat fitur terbaru">
+              <span className="text-lg">🔥</span>
+              <span className="text-xs font-medium">v2.0</span>
+            </Link>
+
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -557,6 +567,12 @@ export default function JakartaWestTourism() {
                     <span className="font-medium text-sm">{link.label}</span>
                   </button>
                 ))}
+                
+                {/* Patch Notes Link - Mobile */}
+                <Link href="/patch-notes" className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 hover:bg-yellow-100 text-gray-700">
+                  <span className="text-lg">🔥</span>
+                  <span className="font-medium text-sm">Patch Notes v2.0</span>
+                </Link>
               </div>
             </motion.div>
           )}
@@ -620,7 +636,7 @@ export default function JakartaWestTourism() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
+            className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap"
           >
             <Button
               onClick={() => scrollToSection('museum-hidup')}
@@ -635,10 +651,17 @@ export default function JakartaWestTourism() {
               size="lg"
               variant="outline"
               className="px-6 py-5 text-base border-2 border-white text-gray-200 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full cursor-pointer"
-
             >
               <Utensils className="mr-2 h-5 w-5" />
               Temukan Kuliner
+            </Button>
+            <Button
+              onClick={() => setAdventureModeOpen(true)}
+              size="lg"
+              className="px-6 py-5 text-base bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-2xl rounded-full cursor-pointer font-bold"
+            >
+              🎮 Adventure Mode
+              <Sparkles className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>
 
@@ -652,6 +675,9 @@ export default function JakartaWestTourism() {
           </motion.div>
         </motion.div>
       </section>
+
+      {/* Achievement Showcase Section */}
+      <AchievementShowcase />
 
       {/* Museum Hidup Section - Konsep Utama */}
       <section id="museum-hidup" className="py-16 bg-white">
@@ -1758,6 +1784,9 @@ export default function JakartaWestTourism() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Adventure Mode Modal */}
+      <AdventureMode isOpen={adventureModeOpen} onClose={() => setAdventureModeOpen(false)} />
     </div>
   )
 }
