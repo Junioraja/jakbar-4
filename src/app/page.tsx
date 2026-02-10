@@ -69,6 +69,7 @@ export default function JakartaWestTourism() {
   const [searchTerm, setSearchTerm] = useState('')
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
   const [adventureModeOpen, setAdventureModeOpen] = useState(false)
+  const [expandedTimelineId, setExpandedTimelineId] = useState<number | null>(null)
   const { scrollY } = useScroll()
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0])
   const heroScale = useTransform(scrollY, [0, 500], [1, 1.1])
@@ -185,12 +186,42 @@ export default function JakartaWestTourism() {
 
   // Data Timeline Sejarah
   const timelineData = [
-    { year: '1610', title: 'Awal Mula', description: 'Pertama kali dikunjungi pedagang Tiongkok di Batavia' },
-    { year: '1740', title: 'Pembentukan Glodok', description: 'Kawasan Glodok resmi menjadi pemukiman warga Tionghoa' },
-    { year: '1820', title: 'Masa Keemasan', description: 'Pusat perdagangan dan budaya Tionghoa berkembang pesat' },
-    { year: '1950', title: 'Pasca Kemerdekaan', description: 'Integrasi budaya dan munculnya kuliner fusion' },
-    { year: '1970', title: 'Modernisasi', description: 'Pengembangan kawasan dan pelestarian warisan budaya' },
-    { year: '2000', title: 'Era Wisata', description: 'Glodok menjadi destinasi wisata budaya internasional' },
+    {
+      year: '1610',
+      title: 'Awal Mula',
+      description: 'Pertama kali dikunjungi pedagang Tiongkok di Batavia',
+      details: 'Pada masa ini, pelabuhan Sunda Kelapa mulai ramai dikunjungi oleh pedagang Tiongkok yang membawa keramik, sutra, dan teh untuk diperdagangkan dengan rempah-rempah Nusantara. Interaksi awal ini menjadi cikal bakal terbentuknya komunitas Tionghoa di Batavia.'
+    },
+    {
+      year: '1740',
+      title: 'Pembentukan Glodok',
+      description: 'Kawasan Glodok resmi menjadi pemukiman warga Tionghoa',
+      details: 'Setelah peristiwa Geger Pacinan, pemerintah kolonial Belanda melokalisir warga Tionghoa di luar tembok kota Batavia, tepatnya di kawasan yang sekarang dikenal sebagai Glodok. Inilah awal mula terbentuknya Pecinan (Chinatown) yang terpusat.'
+    },
+    {
+      year: '1820',
+      title: 'Masa Keemasan',
+      description: 'Pusat perdagangan dan budaya Tionghoa berkembang pesat',
+      details: 'Glodok tumbuh menjadi pusat ekonomi utama di Batavia. Rumah-rumah toko (ruko) bergaya arsitektur gabungan Tiongkok-Eropa mulai dibangun, dan berbagai kelenteng didirikan sebagai pusat kegiatan sosial dan spiritual masyarakat.'
+    },
+    {
+      year: '1950',
+      title: 'Pasca Kemerdekaan',
+      description: 'Integrasi budaya dan munculnya kuliner fusion',
+      details: 'Setelah Indonesia merdeka, terjadi proses asimilasi budaya yang lebih dalam. Kuliner peranakan seperti Lontong Cap Go Meh dan penggunaan kecap manis dalam masakan lokal semakin populer, menandakan perpaduan harmonis budaya Tionghoa dan Betawi.'
+    },
+    {
+      year: '1970',
+      title: 'Modernisasi',
+      description: 'Pengembangan kawasan dan pelestarian warisan budaya',
+      details: 'Pembangunan infrastruktur modern mulai masuk ke kawasan kota tua. Pasar Glodok dibangun menjadi pusat elektronik legendaris. Meskipun modernisasi terjadi, upaya pelestarian bangunan bersejarah dan tradisi leluhur tetap dipertahankan oleh komunitas lokal.'
+    },
+    {
+      year: '2000',
+      title: 'Era Wisata',
+      description: 'Glodok menjadi destinasi wisata budaya internasional',
+      details: 'Pemerintah menetapkan kawasan Kota Tua dan Glodok sebagai destinasi wisata unggulan. Gapura Chinatown Jakarta diresmikan, dan festival-festival budaya seperti Cap Go Meh menjadi agenda wisata tahunan yang menarik wisatawan domestik maupun mancanegara.'
+    },
   ]
 
   // Data Arsitektur
@@ -837,15 +868,47 @@ export default function JakartaWestTourism() {
                   <div className="hidden md:block md:w-1/2"></div>
                   <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-orange-600 rounded-full border-4 border-white shadow-lg" />
                   <div className="ml-12 md:ml-0 md:w-1/2 md:px-8">
-                    <Card className="shadow-lg hover:shadow-xl transition-shadow border-orange-200">
-                      <CardHeader className="pb-3">
-                        <div className="text-3xl font-bold text-orange-600 mb-1">{item.year}</div>
-                        <CardTitle className="text-xl">{item.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600">{item.description}</p>
-                      </CardContent>
-                    </Card>
+                    <motion.div
+                      layout
+                      onClick={() => setExpandedTimelineId(expandedTimelineId === index ? null : index)}
+                      className="cursor-pointer"
+                    >
+                      <Card className={`shadow-lg hover:shadow-xl transition-all duration-300 border-orange-200 ${expandedTimelineId === index ? 'ring-2 ring-orange-500 scale-[1.02]' : ''}`}>
+                        <CardHeader className="pb-3">
+                          <div className="flex justify-between items-start">
+                            <div className="text-3xl font-bold text-orange-600 mb-1">{item.year}</div>
+                            <motion.div
+                              animate={{ rotate: expandedTimelineId === index ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <ChevronDown className="h-5 w-5 text-gray-400" />
+                            </motion.div>
+                          </div>
+                          <CardTitle className="text-xl">{item.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-gray-600">{item.description}</p>
+                          <AnimatePresence>
+                            {expandedTimelineId === index && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                animate={{ opacity: 1, height: 'auto', marginTop: 16 }}
+                                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="overflow-hidden"
+                              >
+                                <Separator className="mb-4 bg-orange-100" />
+                                <div className="bg-orange-50/50 p-4 rounded-lg">
+                                  <p className="text-gray-700 text-sm leading-relaxed">
+                                    {item.details}
+                                  </p>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   </div>
                 </motion.div>
               ))}
@@ -1428,7 +1491,7 @@ export default function JakartaWestTourism() {
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <Badge className="mb-3 px-4 py-1 bg-purple-100 text-purple-700 font-semibold text-sm">
+            <Badge className="mb-3 px-4 py-1 bg-red-100 text-red-700 font-semibold text-sm">
               Materi Muatan Lokal
             </Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
@@ -1443,7 +1506,7 @@ export default function JakartaWestTourism() {
               <Input
                 type="text"
                 placeholder="Cari istilah..."
-                className="pl-10 border-purple-200 focus:border-purple-500 focus:ring-purple-500"
+                className="pl-10 border-red-200 focus:border-red-500 focus:ring-red-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
