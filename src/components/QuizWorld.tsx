@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -17,7 +17,12 @@ interface QuizWorldProps {
 
 export default function QuizWorld({ zoneId, onClose }: QuizWorldProps) {
   const zone = ZONES.find(z => z.id === zoneId)
-  const questions = QUIZ_QUESTIONS.filter(q => q.zoneId === zoneId).sort(() => Math.random() - 0.5) // Shuffle
+  
+  // Memoize shuffled questions to prevent re-rendering changes
+  const questions = useMemo(() => 
+    QUIZ_QUESTIONS.filter(q => q.zoneId === zoneId).sort(() => Math.random() - 0.5),
+    [zoneId]
+  )
   
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
