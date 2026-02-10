@@ -5,7 +5,8 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel'
+
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -50,7 +51,10 @@ import {
   ChevronDown,
   Home,
   Compass,
-  Search
+  Search,
+  Sun,
+  CloudSun,
+  Moon
 } from 'lucide-react'
 import TransportList from '@/components/TransportList'
 import BudgetCalculator from '@/components/BudgetCalculator'
@@ -70,6 +74,9 @@ export default function JakartaWestTourism() {
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
   const [adventureModeOpen, setAdventureModeOpen] = useState(false)
   const [expandedTimelineId, setExpandedTimelineId] = useState<number | null>(null)
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isCarouselHovered, setIsCarouselHovered] = useState(false)
   const { scrollY } = useScroll()
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0])
   const heroScale = useTransform(scrollY, [0, 500], [1, 1.1])
@@ -91,6 +98,29 @@ export default function JakartaWestTourism() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Auto-play effect and current slide tracking for Carousel
+  useEffect(() => {
+    if (!carouselApi) return
+
+    const onSelect = () => {
+      setCurrentSlide(carouselApi.selectedScrollSnap())
+    }
+
+    carouselApi.on("select", onSelect)
+
+    // Auto-play
+    const interval = setInterval(() => {
+      if (!isCarouselHovered) {
+        carouselApi.scrollNext()
+      }
+    }, 1500) // Change slide every 3 seconds
+
+    return () => {
+      carouselApi.off("select", onSelect)
+      clearInterval(interval)
+    }
+  }, [carouselApi, isCarouselHovered])
 
   // Grouped navigation structure
   const navGroups = [
@@ -471,10 +501,9 @@ export default function JakartaWestTourism() {
     '/images/gate-glodok.png',
     '/images/lampulampu.png',
     '/images/merah-glodok.png',
-    'images/toasebio.png',
-    'images/pasarglodok.png',
-    'images/pth.png'
-
+    '/images/toasebio.png',
+    '/images/pasarglodok.png',
+    '/images/pth.png'
   ]
 
   // Data Transportasi
@@ -508,7 +537,7 @@ export default function JakartaWestTourism() {
                 <Landmark className="h-5 w-5 text-white" />
               </div>
               <span className="text-lg font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent hidden sm:block">
-                Museum Hidup Jakarta Barat
+                Jakarta Barat Kelompok 4
               </span>
             </motion.div>
 
@@ -1421,7 +1450,7 @@ export default function JakartaWestTourism() {
                 <CardHeader>
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-yellow-400 rounded-full flex items-center justify-center">
-                      <SunIcon />
+                      <Sun className="h-6 w-6 text-white" />
                     </div>
                     <CardTitle>Pagi (07:00 - 09:00)</CardTitle>
                   </div>
@@ -1437,7 +1466,7 @@ export default function JakartaWestTourism() {
                 <CardHeader>
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full flex items-center justify-center">
-                      <CloudSunIcon />
+                      <CloudSun className="h-6 w-6 text-white" />
                     </div>
                     <CardTitle>Siang (10:00 - 14:00)</CardTitle>
                   </div>
@@ -1453,7 +1482,7 @@ export default function JakartaWestTourism() {
                 <CardHeader>
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
-                      <MoonIcon />
+                      <Moon className="h-6 w-6 text-white" />
                     </div>
                     <CardTitle>Sore (15:00 - 17:00)</CardTitle>
                   </div>
@@ -1603,43 +1632,61 @@ export default function JakartaWestTourism() {
             </p>
           </motion.div>
 
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
+          <div
+            className="w-full px-4 md:px-12"
+            onMouseEnter={() => setIsCarouselHovered(true)}
+            onMouseLeave={() => setIsCarouselHovered(false)}
           >
-            <CarouselContent>
-              {galleryImages.map((image, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
-                    className="p-2"
-                  >
-                    <Card className="overflow-hidden shadow-xl cursor-pointer" onClick={() => openLightbox(image)}>
-                      <div className="relative h-64 md:h-80 overflow-hidden">
-                        <img
-                          src={image}
-                          alt={`Gallery ${index + 1}`}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                          <div className="flex items-center gap-2 text-white">
-                            <Eye className="h-5 w-5" />
-                            <span className="font-semibold">Lihat</span>
+            <Carousel
+              setApi={setCarouselApi}
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+              className="w-full max-w-5xl mx-auto"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {galleryImages.map((image, index) => {
+                  const isActive = index === currentSlide
+                  return (
+                    <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 py-8">
+                      <motion.div
+                        animate={{
+                          scale: isActive ? 1.15 : 0.9,
+                          opacity: isActive ? 1 : 0.6,
+                          zIndex: isActive ? 10 : 0,
+                          y: isActive ? -10 : 0
+                        }}
+                        transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
+                        className="p-2 h-full"
+                      >
+                        <Card
+                          className={`overflow-hidden shadow-xl cursor-pointer h-full border-none transition-all duration-500 ${isActive ? 'ring-4 ring-orange-400 shadow-2xl' : 'grayscale'}`}
+                          onClick={() => openLightbox(image)}
+                        >
+                          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                            <img
+                              src={image}
+                              alt={`Gallery ${index + 1}`}
+                              className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                              <div className="flex items-center gap-2 text-white">
+                                <Eye className="h-5 w-5" />
+                                <span className="font-semibold">Lihat Detail</span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
+                        </Card>
+                      </motion.div>
+                    </CarouselItem>
+                  )
+                })}
+              </CarouselContent>
+              <CarouselPrevious className="left-0 md:-left-12 lg:-left-16 bg-white/80 hover:bg-white text-orange-600 border-orange-200" />
+              <CarouselNext className="right-0 md:-right-12 lg:-right-16 bg-white/80 hover:bg-white text-orange-600 border-orange-200" />
+            </Carousel>
+          </div>
         </div>
       </section>
 
@@ -1843,14 +1890,4 @@ export default function JakartaWestTourism() {
 }
 
 // Helper icons
-function SunIcon() {
-  return <span className="text-2xl">☀️</span>
-}
 
-function CloudSunIcon() {
-  return <span className="text-2xl">⛅</span>
-}
-
-function MoonIcon() {
-  return <span className="text-2xl">🌙</span>
-}
