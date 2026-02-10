@@ -88,9 +88,26 @@ export default function QuizWorld({ zoneId, onClose }: QuizWorldProps) {
     addScore(zoneId, score)
     completeZone(zoneId)
     
-    // Check badges
-    if (score === 300) { // Perfect score (3 questions * 100)
+    // Calculate perfect score dynamically
+    const totalPossible = questions.length * 100
+    const isPerfectScore = score === totalPossible
+    
+    // Check and unlock badges
+    if (isPerfectScore) {
       unlockBadge('perfect-score')
+    }
+    
+    // Zone completion badges
+    if (zoneId === 'kota-tua') {
+      unlockBadge('master-kota-tua')
+    } else if (zoneId === 'kuliner') {
+      unlockBadge('culinary-expert')
+    } else if (zoneId === 'taman') {
+      unlockBadge('nature-lover')
+    } else if (zoneId === 'sejarah') {
+      unlockBadge('history-scholar')
+    } else if (zoneId === 'budaya') {
+      unlockBadge('culture-enthusiast')
     }
   }
 
@@ -340,6 +357,9 @@ function QuizResult({
               )}
               {percentage >= 50 && percentage < 70 && (
                 <Badge className="bg-green-500 text-white font-bold">✅ Good Job!</Badge>
+              )}
+              {percentage < 50 && (
+                <Badge className="bg-gray-500 text-white font-bold">💪 Keep Learning!</Badge>
               )}
             </div>
 

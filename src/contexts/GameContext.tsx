@@ -82,20 +82,38 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
       const newZoneScores = { ...prev.zoneScores }
       newZoneScores[zoneId] = [...(newZoneScores[zoneId] || []), score]
       
-      return {
+      const newProgress = {
         ...prev,
         zoneScores: newZoneScores,
         totalScore: prev.totalScore + score,
-        quizzesCompleted: prev.quizzesCompleted + 1
+        quizzesCompleted: prev.quizzesCompleted + 1,
+        unlockedBadges: new Set(prev.unlockedBadges)
       }
+
+      // Auto-unlock achievement badges
+      // Quiz Champion badge: total score >= 400 (4 perfect quizzes)
+      if (newProgress.totalScore >= 400) {
+        newProgress.unlockedBadges.add('quiz-champion')
+      }
+
+      // Explorer badge: all 5 zones completed
+      if (newProgress.completedZones.size === 5) {
+        newProgress.unlockedBadges.add('explorer-jakbar')
+      }
+
+      return newProgress
     })
   }
 
   const unlockBadge = (badgeId: string) => {
-    setProgress(prev => ({
-      ...prev,
-      unlockedBadges: new Set([...prev.unlockedBadges, badgeId])
-    }))
+    setProgress(prev => {
+      const newBadges = new Set(prev.unlockedBadges)
+      newBadges.add(badgeId)
+      return {
+        ...prev,
+        unlockedBadges: newBadges
+      }
+    })
   }
 
   const resetProgress = () => {
