@@ -559,12 +559,6 @@ export default function JakartaWestTourism() {
               ))}
             </div>
 
-            {/* Patch Notes Link - Desktop */}
-            <Link href="/patch-notes" className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-yellow-100 text-gray-700" title="Lihat fitur terbaru">
-              <span className="text-lg">🔥</span>
-              <span className="text-xs font-medium">v2.0</span>
-            </Link>
-
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -598,12 +592,6 @@ export default function JakartaWestTourism() {
                     <span className="font-medium text-sm">{link.label}</span>
                   </button>
                 ))}
-                
-                {/* Patch Notes Link - Mobile */}
-                <Link href="/patch-notes" className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 hover:bg-yellow-100 text-gray-700">
-                  <span className="text-lg">🔥</span>
-                  <span className="font-medium text-sm">Patch Notes v2.0</span>
-                </Link>
               </div>
             </motion.div>
           )}
