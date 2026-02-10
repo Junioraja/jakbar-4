@@ -380,42 +380,50 @@ export default function JakartaWestTourism() {
     {
       term: 'Ciam Si',
       meaning: 'Ramalan bambu tradisional di kelenteng, cara mencari petunjuk nasib dengan mengocok bambu',
-      context: 'Biasanya dilakukan di Vihara Dharma Bhakti saat Imlek'
+      context: 'Biasanya dilakukan di Vihara Dharma Bhakti saat Imlek',
+      image: '/images/ciam-si.png'
     },
     {
       term: 'Pecinan',
       meaning: 'Pemukiman atau kawasan komersial masyarakat Tionghoa',
-      context: 'Glodok adalah Pecinan terbesar di Indonesia'
+      context: 'Glodok adalah Pecinan terbesar di Indonesia',
+      image: '/images/pecinan.png'
     },
     {
       term: 'Cap Go Meh',
       meaning: 'Perayaan hari ke-15 setelah Tahun Baru Imlek, menandai akhir perayaan Imlek',
-      context: 'Dirayakan dengan parade barongsai dan lampion di Glodok'
+      context: 'Dirayakan dengan parade barongsai dan lampion di Glodok',
+      image: '/images/cap-go-meh.png'
     },
     {
       term: 'Sekba',
       meaning: 'Aneka olahan daging babi dengan cara memasak khusus',
-      context: 'Makanan tradisional Tionghoa yang legendaris di Glodok'
+      context: 'Makanan tradisional Tionghoa yang legendaris di Glodok',
+      image: '/images/sekba.png'
     },
     {
       term: 'Petak Sembilan',
       meaning: 'Kawasan kuliner legendaris di Glodok',
-      context: 'Pusat jajanan dan kuliner yang wajib dikunjungi'
+      context: 'Pusat jajanan dan kuliner yang wajib dikunjungi',
+      image: '/images/petak-sembilan.png'
     },
     {
       term: 'Gang Gloria',
       meaning: 'Jalanan sempit bersejarah dengan toko-toko tua',
-      context: 'Favorit untuk wisata kuliner dan belanja oleh-oleh'
+      context: 'Favorit untuk wisata kuliner dan belanja oleh-oleh',
+      image: '/images/gang-gloria.png'
     },
     {
       term: 'Pantjoran',
       meaning: 'Nama jalan bersejarah di kawasan Glodok',
-      context: 'Ada Pantjoran Tea House yang jadi ikon wisata'
+      context: 'Ada Pantjoran Tea House yang jadi ikon wisata',
+      image: '/images/pantjoran.png'
     },
     {
       term: 'Vihara',
       meaning: 'Tempat ibadah umat Buddha',
-      context: 'Vihara Dharma Bhakti adalah vihara tertua di Jakarta'
+      context: 'Vihara Dharma Bhakti adalah vihara tertua di Jakarta',
+      image: '/images/vihara.png'
     },
   ]
 
@@ -1447,20 +1455,43 @@ export default function JakartaWestTourism() {
                     style={{ transformStyle: 'preserve-3d' }}
                   >
                     {/* Front Side */}
-                    <div className="absolute inset-0 [backface-visibility:hidden] flex flex-col items-center justify-center p-6 bg-white rounded-xl">
-                      <BookOpen className="h-12 w-12 text-purple-200 mb-4" />
-                      <h3 className="text-xl font-bold text-purple-700 text-center">{term.term}</h3>
-                      <p className="text-xs text-gray-400 mt-4 text-center absolute bottom-6">Klik untuk melihat arti</p>
+                    <div className="absolute inset-0 [backface-visibility:hidden] flex flex-col items-center justify-center p-6 bg-white rounded-xl overflow-hidden border border-purple-100 shadow-sm">
+                      {term.image ? (
+                        <>
+                          <img
+                            src={term.image}
+                            alt={term.term}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                          <div className="relative z-10 flex flex-col items-center justify-end h-full w-full pb-4">
+                            <h3 className="text-xl font-bold text-white text-center mb-1 drop-shadow-md">{term.term}</h3>
+                            <p className="text-[10px] text-gray-300 font-medium tracking-wider uppercase">Klik untuk info</p>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-16 h-16 bg-purple-50 rounded-full flex items-center justify-center mb-4">
+                            <BookOpen className="h-8 w-8 text-purple-600" />
+                          </div>
+                          <h3 className="text-xl font-bold text-gray-800 text-center">{term.term}</h3>
+                          <div className="mt-auto">
+                            <span className="text-xs text-purple-600 font-medium bg-purple-50 px-3 py-1 rounded-full">
+                              Klik untuk melihat arti
+                            </span>
+                          </div>
+                        </>
+                      )}
                     </div>
 
                     {/* Back Side */}
                     <div
-                      className="absolute inset-0 [backface-visibility:hidden] flex flex-col justify-center p-6 bg-purple-600 rounded-xl text-white"
+                      className="absolute inset-0 [backface-visibility:hidden] flex flex-col justify-center p-6 bg-red-600 rounded-xl text-white"
                       style={{ transform: 'rotateY(180deg)' }}
                     >
                       <h3 className="text-lg font-bold mb-2 border-b border-purple-400 pb-2">{term.term}</h3>
                       <p className="text-sm mb-3 font-medium">{term.meaning}</p>
-                      <div className="bg-purple-700/50 p-2 rounded-lg">
+                      <div className="bg-red-700/50 p-2 rounded-lg">
                         <p className="text-xs italic opacity-90">{term.context}</p>
                       </div>
                     </div>
