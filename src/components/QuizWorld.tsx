@@ -131,64 +131,69 @@ export default function QuizWorld({ zoneId, onClose }: QuizWorldProps) {
           onClick={(e) => e.stopPropagation()}
           className="min-h-screen flex items-center justify-center p-4"
         >
-          <Card className="w-full max-w-2xl bg-gradient-to-b from-slate-950 to-slate-900 border-2 border-cyan-500">
+          <Card className="w-full max-w-2xl bg-gradient-to-br from-blue-600 via-cyan-600 to-teal-600 border-0 shadow-2xl">
             {/* Header */}
-            <CardHeader className="relative">
+            <CardHeader className="relative bg-white/10 backdrop-blur-sm border-b border-white/20">
               <div className="absolute right-4 top-4">
                 <button
                   onClick={onClose}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-white hover:text-yellow-300 transition-colors bg-white/10 hover:bg-white/20 rounded-full p-2"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-3xl">{zone?.emoji}</span>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="text-4xl drop-shadow-lg">{zone?.emoji}</div>
                 <div>
-                  <CardTitle className="text-2xl">{zone?.name}</CardTitle>
-                  <CardDescription className="text-cyan-200">
+                  <CardTitle className="text-3xl font-bold text-white drop-shadow-md">{zone?.name}</CardTitle>
+                  <CardDescription className="text-white/90 font-semibold">
                     Jakbar Quiz World
                   </CardDescription>
                 </div>
               </div>
 
               {/* Progress and Stats */}
-              <div className="space-y-3">
+              <div className="space-y-4 bg-white/5 rounded-lg p-4 border border-white/20">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold">
+                  <span className="text-sm font-bold text-white/90">
                     Soal {currentQuestionIndex + 1} dari {questions.length}
                   </span>
-                  <span className="text-sm font-bold text-cyan-400">{score} Poin</span>
+                  <span className="text-lg font-bold text-yellow-300 drop-shadow-md bg-black/30 px-3 py-1 rounded-full">{score} Poin</span>
                 </div>
-                <Progress 
-                  value={((currentQuestionIndex + 1) / questions.length) * 100} 
-                  className="h-3"
-                />
+                <div className="space-y-2">
+                  <Progress 
+                    value={((currentQuestionIndex + 1) / questions.length) * 100} 
+                    className="h-3 bg-white/30"
+                  />
+                  <div className="text-xs text-white/80 text-center">Progress Quiz</div>
+                </div>
 
                 {/* Timer */}
-                <div className="flex items-center justify-between">
-                  <div className={`flex items-center gap-2 font-bold ${timeLeft <= 3 ? 'text-red-500' : 'text-cyan-400'}`}>
-                    <Clock className="h-4 w-4" />
+                <div className="flex items-center justify-between bg-black/30 rounded-lg p-3">
+                  <div className={`flex items-center gap-2 font-bold text-lg ${
+                    timeLeft <= 3 ? 'text-red-300 animate-pulse' : 'text-white'
+                  }`}>
+                    <Clock className="h-5 w-5" />
                     <span>{timeLeft}s</span>
                   </div>
-                  <div className="text-xs text-gray-400">
-                    Jawab cepat, dapat poin bonus!
+                  <div className="text-xs text-white/80">
+                    ⚡ Jawab cepat = bonus poin!
                   </div>
                 </div>
               </div>
             </CardHeader>
 
-            <CardContent className="pt-6">
+            <CardContent className="pt-8 pb-6">
               {/* Question */}
               <motion.div
                 key={currentQuestionIndex}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6"
+                className="mb-8"
               >
-                <div className="bg-blue-900/20 border border-blue-700 rounded-lg p-4 mb-6">
-                  <h3 className="text-lg font-bold text-white">
+                <div className="bg-white/15 backdrop-blur-sm border-2 border-white/30 rounded-xl p-6 mb-8 shadow-lg">
+                  <h3 className="text-xl font-bold text-white leading-relaxed drop-shadow-md">
                     {currentQuestion.question}
                   </h3>
                 </div>
@@ -199,13 +204,14 @@ export default function QuizWorld({ zoneId, onClose }: QuizWorldProps) {
                     const isSelected = selectedAnswer === index
                     const isAnswerShown = showResult
                     const isCorrectAnswer = index === currentQuestion.correctAnswer
-                    let buttonClass = 'bg-slate-700 border-slate-600 hover:border-cyan-500'
+                    
+                    let buttonClass = 'bg-white/20 border-2 border-white/40 hover:bg-white/30 hover:border-white/60 text-white'
 
                     if (isAnswerShown) {
                       if (isCorrectAnswer) {
-                        buttonClass = 'bg-green-700/40 border-green-500'
+                        buttonClass = 'bg-green-500/30 border-2 border-green-400 text-white shadow-lg shadow-green-500/50'
                       } else if (isSelected && !isCorrect) {
-                        buttonClass = 'bg-red-700/40 border-red-500'
+                        buttonClass = 'bg-red-500/30 border-2 border-red-400 text-white shadow-lg shadow-red-500/50'
                       }
                     }
 
@@ -216,24 +222,28 @@ export default function QuizWorld({ zoneId, onClose }: QuizWorldProps) {
                         whileTap={{ scale: 0.98 }}
                         onClick={() => handleAnswerClick(index)}
                         disabled={showResult || answered.has(currentQuestionIndex)}
-                        className={`w-full p-4 text-left border-2 rounded-lg transition-all font-medium ${buttonClass} ${
+                        className={`w-full p-4 text-left border-2 rounded-lg transition-all font-medium ${
+                          buttonClass
+                        } ${
                           answered.has(currentQuestionIndex) ? 'cursor-default' : 'cursor-pointer'
                         }`}
                       >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold
-                            ${isAnswerShown && isCorrectAnswer ? 'border-green-500 text-green-400' : ''}
-                            ${isAnswerShown && isSelected && !isCorrect ? 'border-red-500 text-red-400' : ''}
-                            ${!isAnswerShown ? 'border-gray-500' : ''}
-                          `}>
+                        <div className="flex items-center gap-4">
+                          <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold flex-shrink-0 ${
+                            isAnswerShown && isCorrectAnswer ? 'border-green-400 bg-green-500/40 text-white' : ''
+                          }${
+                            isAnswerShown && isSelected && !isCorrect ? 'border-red-400 bg-red-500/40 text-white' : ''
+                          }${
+                            !isAnswerShown ? 'border-white/60 bg-white/20 text-white' : ''
+                          }`}>
                             {String.fromCharCode(65 + index)}
                           </div>
-                          <span className="flex-1">{option}</span>
+                          <span className="flex-1 text-base leading-relaxed">{option}</span>
                           {isAnswerShown && isCorrectAnswer && (
-                            <CheckCircle2 className="h-5 w-5 text-green-400" />
+                            <CheckCircle2 className="h-6 w-6 text-green-300 flex-shrink-0 drop-shadow-lg" />
                           )}
                           {isAnswerShown && isSelected && !isCorrect && (
-                            <XCircle className="h-5 w-5 text-red-400" />
+                            <XCircle className="h-6 w-6 text-red-300 flex-shrink-0 drop-shadow-lg" />
                           )}
                         </div>
                       </motion.button>
@@ -248,23 +258,25 @@ export default function QuizWorld({ zoneId, onClose }: QuizWorldProps) {
                   <motion.div
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`mb-6 p-4 rounded-lg border ${
+                    className={`mb-6 p-4 rounded-lg border-2 backdrop-blur-sm ${
                       isCorrect
-                        ? 'bg-green-900/30 border-green-700'
-                        : 'bg-yellow-900/30 border-yellow-700'
+                        ? 'bg-green-500/20 border-green-400 shadow-lg shadow-green-500/30'
+                        : 'bg-yellow-500/20 border-yellow-400 shadow-lg shadow-yellow-500/30'
                     }`}
                   >
-                    <div className="flex gap-2">
+                    <div className="flex gap-3">
                       {isCorrect ? (
-                        <CheckCircle2 className="h-5 w-5 text-green-400 flex-shrink-0" />
+                        <CheckCircle2 className="h-6 w-6 text-green-300 flex-shrink-0 drop-shadow-md mt-0.5" />
                       ) : (
-                        <XCircle className="h-5 w-5 text-yellow-400 flex-shrink-0" />
+                        <XCircle className="h-6 w-6 text-yellow-300 flex-shrink-0 drop-shadow-md mt-0.5" />
                       )}
                       <div>
-                        <p className={`font-semibold mb-1 ${isCorrect ? 'text-green-300' : 'text-yellow-300'}`}>
-                          {isCorrect ? '✅ Jawaban Benar!' : '❌ Jawaban Salah'}
+                        <p className={`font-bold mb-2 text-lg ${
+                          isCorrect ? 'text-green-200' : 'text-yellow-200'
+                        }`}>
+                          {isCorrect ? '✅ Jawaban Tepat!' : '❌ Jawaban Kurang Tepat'}
                         </p>
-                        <p className="text-sm opacity-90">{currentQuestion.explanation}</p>
+                        <p className="text-white/90 leading-relaxed">{currentQuestion.explanation}</p>
                       </div>
                     </div>
                   </motion.div>
@@ -274,14 +286,15 @@ export default function QuizWorld({ zoneId, onClose }: QuizWorldProps) {
               {/* Next Button */}
               {showResult && (
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-8"
                 >
                   <Button
                     onClick={handleNextQuestion}
-                    className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-bold py-3"
+                    className="w-full bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-black font-bold py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                   >
-                    {currentQuestionIndex < questions.length - 1 ? 'Soal Berikutnya →' : 'Lihat Hasil'}
+                    {currentQuestionIndex < questions.length - 1 ? '→ Soal Berikutnya' : '🏁 Lihat Hasil'}
                   </Button>
                 </motion.div>
               )}
@@ -321,53 +334,64 @@ function QuizResult({
         onClick={(e) => e.stopPropagation()}
         className="min-h-screen flex items-center justify-center p-4"
       >
-        <Card className="w-full max-w-md bg-gradient-to-b from-purple-950 to-purple-900 border-2 border-purple-500">
-          <CardContent className="pt-12 text-center">
+        <Card className="w-full max-w-md bg-gradient-to-br from-purple-600 via-pink-600 to-red-500 border-0 shadow-2xl overflow-hidden">
+          <CardContent className="pt-12 pb-8 text-center">
             <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 0.6 }}
-              className="text-6xl mb-4"
+              animate={{ scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] }}
+              transition={{ duration: 0.8 }}
+              className="text-7xl mb-6 drop-shadow-lg"
             >
               🎉
             </motion.div>
 
-            <h2 className="text-3xl font-bold text-white mb-2">QUIZ COMPLETE!</h2>
-            <p className="text-purple-200 mb-6">{zone?.name}</p>
+            <h2 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">QUIZ COMPLETE!</h2>
+            <p className="text-white/90 mb-8 text-lg font-semibold">{zone?.name}</p>
 
-            <div className="bg-purple-800/30 rounded-lg p-6 mb-6">
-              <div className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+            <div className="bg-white/15 backdrop-blur-sm border-2 border-white/30 rounded-xl p-8 mb-8">
+              <div className="text-6xl font-bold text-yellow-300 mb-3 drop-shadow-md drop-shadow-lg">
                 {score}
               </div>
-              <div className="text-gray-300 mb-4">dari {totalPossible} poin</div>
+              <div className="text-white/90 mb-6 font-semibold">dari {totalPossible} poin</div>
               
-              <div className="mb-4">
-                <Progress value={percentage} className="h-3 mb-2" />
-                <div className="text-lg font-bold text-purple-300">{percentage}%</div>
+              <div className="mb-6 space-y-3">
+                <Progress value={percentage} className="h-4 bg-white/30 rounded-full" />
+                <div className="text-2xl font-bold text-yellow-300 drop-shadow-md">{percentage}%</div>
               </div>
 
-              <div className="text-3xl">{rank}</div>
+              <div className="bg-white/20 rounded-lg p-4 mb-2">
+                <div className="text-4xl mb-2">{rank.split(' ')[0]}</div>
+                <div className="text-xl font-bold text-white">{rank.split(' ')[1]}</div>
+              </div>
             </div>
 
-            <div className="space-y-2 mb-6 text-sm">
+            <div className="space-y-3 mb-8">
               {percentage >= 90 && (
-                <Badge className="bg-yellow-500 text-black font-bold">⭐ Perfect Zone Master!</Badge>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <Badge className="bg-yellow-400 text-black font-bold text-sm py-2 px-4 drop-shadow-lg">⭐ Master Sempurna!</Badge>
+                </motion.div>
               )}
               {percentage >= 70 && percentage < 90 && (
-                <Badge className="bg-blue-500 text-white font-bold">✨ Excellent Work!</Badge>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <Badge className="bg-blue-400 text-black font-bold text-sm py-2 px-4 drop-shadow-lg">✨ Luar Biasa!</Badge>
+                </motion.div>
               )}
               {percentage >= 50 && percentage < 70 && (
-                <Badge className="bg-green-500 text-white font-bold">✅ Good Job!</Badge>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <Badge className="bg-green-400 text-black font-bold text-sm py-2 px-4 drop-shadow-lg">✅ Bagus!</Badge>
+                </motion.div>
               )}
               {percentage < 50 && (
-                <Badge className="bg-gray-500 text-white font-bold">💪 Keep Learning!</Badge>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <Badge className="bg-orange-400 text-black font-bold text-sm py-2 px-4 drop-shadow-lg">💪 Terus Belajar!</Badge>
+                </motion.div>
               )}
             </div>
 
             <Button
               onClick={onClose}
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3"
+              className="w-full bg-white text-black hover:bg-yellow-100 font-bold py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
             >
-              Kembali ke Adventure Mode
+              🎮 Kembali ke Adventure Mode
             </Button>
           </CardContent>
         </Card>
