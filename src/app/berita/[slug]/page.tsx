@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { ChevronLeft } from 'lucide-react';
 
 type Item = {
   judul: string;
@@ -126,12 +127,36 @@ export default function BeritaDetailPage() {
       .finally(() => setLoading(false));
   }, [slug]);
 
-  if (loading) return <div className="p-6 min-h-screen bg-gradient-to-b from-slate-50 to-white flex items-center justify-center"><div className="text-slate-600">Loading...</div></div>;
-  if (error) return <div className="p-6 min-h-screen bg-gradient-to-b from-slate-50 to-white flex items-center justify-center text-red-600">Error: {error}</div>;
-  if (!item) return <div className="p-6 min-h-screen bg-gradient-to-b from-slate-50 to-white flex items-center justify-center text-slate-600">Artikel tidak ditemukan.</div>;
+  if (loading) return (
+    <div className="p-6 min-h-screen bg-gradient-to-b from-orange-50 to-white flex flex-col items-center justify-center">
+      <button onClick={() => window.history.back()} className="absolute top-6 left-6 flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium transition-colors">
+        <ChevronLeft className="h-5 w-5" />
+        Kembali
+      </button>
+      <div className="text-slate-600">Loading...</div>
+    </div>
+  );
+  if (error) return (
+    <div className="p-6 min-h-screen bg-gradient-to-b from-orange-50 to-white flex flex-col items-center justify-center">
+      <button onClick={() => window.history.back()} className="absolute top-6 left-6 flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium transition-colors">
+        <ChevronLeft className="h-5 w-5" />
+        Kembali
+      </button>
+      <div className="text-red-600">Error: {error}</div>
+    </div>
+  );
+  if (!item) return (
+    <div className="p-6 min-h-screen bg-gradient-to-b from-orange-50 to-white flex flex-col items-center justify-center">
+      <button onClick={() => window.history.back()} className="absolute top-6 left-6 flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium transition-colors">
+        <ChevronLeft className="h-5 w-5" />
+        Kembali
+      </button>
+      <div className="text-slate-600">Artikel tidak ditemukan.</div>
+    </div>
+  );
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+    <main className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-orange-50">
       {/* Hero Image */}
       {(detailImage || item.gambar) && (
         <div className="relative h-96 bg-slate-200 overflow-hidden">
@@ -148,15 +173,16 @@ export default function BeritaDetailPage() {
       {/* Content */}
       <article className="max-w-3xl mx-auto px-4 py-8">
         <div className="mb-4">
-          <button onClick={() => history.back()} className="text-sm text-blue-600 hover:text-blue-700 hover:underline font-medium flex items-center gap-1 transition-colors">
-            ← Kembali
+          <button onClick={() => history.back()} className="text-sm text-orange-600 hover:text-orange-700 hover:underline font-medium flex items-center gap-1 transition-colors">
+            <ChevronLeft className="h-4 w-4" />
+            Kembali
           </button>
         </div>
 
         {/* Article Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 flex-wrap mb-4">
-            {category && <span className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full uppercase tracking-wider">{category}</span>}
+            {category && <span className="text-xs font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full uppercase tracking-wider">{category}</span>}
             {author && <span className="text-xs text-slate-600 font-medium">Oleh {author}</span>}
             {item.tanggal && <span className="text-xs text-slate-500">{item.tanggal}</span>}
           </div>
@@ -164,7 +190,7 @@ export default function BeritaDetailPage() {
         </div>
 
         {(detailLoading && !contentHtml) && <div className="mb-4 text-slate-600 flex items-center gap-2"><span className="animate-spin">↻</span> Memuat isi artikel...</div>}
-        {detailError && <div className="text-red-600 mb-4 p-3 bg-red-50 rounded-lg text-sm">{detailError}</div>}
+        {detailError && <div className="text-red-600 mb-4 p-3 bg-red-50 rounded-lg text-sm">⚠ {detailError}</div>}
 
         {/* Article Content */}
         {contentHtml ? (
@@ -174,7 +200,7 @@ export default function BeritaDetailPage() {
             <p className="text-slate-700 mb-6 leading-relaxed">{item.ringkasan}</p>
             {item.link && (
               <p className="mt-6">
-                <a href={item.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold hover:underline">
+                <a href={item.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold hover:underline">
                   Baca di sumber asli 
                   <span>→</span>
                 </a>
@@ -188,9 +214,9 @@ export default function BeritaDetailPage() {
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Artikel Terkait</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {getRelatedItems(item).map((rel, i) => (
-              <a key={i} href={`/berita/${slugify(rel.judul)}`} className="group p-4 border border-slate-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all duration-300">
-                <div className="text-xs text-blue-600 font-semibold uppercase tracking-wider mb-1">{rel.tanggal || 'Tanpa Tanggal'}</div>
-                <h4 className="font-semibold text-slate-900 group-hover:text-blue-600 line-clamp-2 transition-colors">{rel.judul}</h4>
+              <a key={i} href={`/berita/${slugify(rel.judul)}`} className="group p-4 border border-slate-200 rounded-lg hover:border-orange-400 hover:shadow-md transition-all duration-300">
+                <div className="text-xs text-orange-600 font-semibold uppercase tracking-wider mb-1">{rel.tanggal || 'Tanpa Tanggal'}</div>
+                <h4 className="font-semibold text-slate-900 group-hover:text-orange-600 line-clamp-2 transition-colors">{rel.judul}</h4>
               </a>
             ))}
           </div>

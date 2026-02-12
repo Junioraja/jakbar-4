@@ -54,7 +54,8 @@ import {
   Search,
   Sun,
   CloudSun,
-  Moon
+  Moon,
+  Newspaper
 } from 'lucide-react'
 import TransportList from '@/components/TransportList'
 import BudgetCalculator from '@/components/BudgetCalculator'
@@ -163,6 +164,12 @@ export default function JakartaWestTourism() {
       icon: <Camera className="h-4 w-4" />
     },
     {
+      type: 'link' as const,
+      label: 'Berita',
+      icon: <Newspaper className="h-4 w-4" />,
+      href: '/berita'
+    },
+    {
       type: 'single' as const,
       id: 'contact',
       label: 'Kontak',
@@ -181,6 +188,7 @@ export default function JakartaWestTourism() {
     { id: 'kamus', label: 'Kamus Budaya', icon: <BookOpen /> },
     { id: 'budget', label: 'Estimasi Budget', icon: <Wallet /> },
     { id: 'gallery', label: 'Galeri', icon: <Camera /> },
+    { id: 'berita', label: 'Berita', icon: <Newspaper />, href: '/berita' },
     { id: 'contact', label: 'Kontak', icon: <Phone /> },
   ]
 
@@ -556,6 +564,15 @@ export default function JakartaWestTourism() {
                     {group.icon}
                     <span className="font-medium">{group.label}</span>
                   </button>
+                ) : group.type === 'link' ? (
+                  <Link
+                    key={index}
+                    href={group.href}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-orange-100 hover:text-orange-700 font-medium"
+                  >
+                    {group.icon}
+                    <span>{group.label}</span>
+                  </Link>
                 ) : (
                   <DropdownMenu key={index}>
                     <DropdownMenuTrigger asChild>
@@ -609,17 +626,29 @@ export default function JakartaWestTourism() {
             >
               <div className="px-4 py-3 space-y-1 max-h-[70vh] overflow-y-auto">
                 {navLinks.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => scrollToSection(link.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer ${activeSection === link.id
-                      ? 'bg-gradient-to-r from-red-600 to-orange-600 text-white'
-                      : 'text-gray-700 hover:bg-orange-100'
-                      }`}
-                  >
-                    {link.icon}
-                    <span className="font-medium text-sm">{link.label}</span>
-                  </button>
+                  link.href ? (
+                    <Link
+                      key={link.id}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 text-gray-700 hover:bg-orange-100 hover:text-orange-700"
+                    >
+                      {link.icon}
+                      <span className="font-medium text-sm">{link.label}</span>
+                    </Link>
+                  ) : (
+                    <button
+                      key={link.id}
+                      onClick={() => scrollToSection(link.id)}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 cursor-pointer ${activeSection === link.id
+                        ? 'bg-gradient-to-r from-red-600 to-orange-600 text-white'
+                        : 'text-gray-700 hover:bg-orange-100'
+                        }`}
+                    >
+                      {link.icon}
+                      <span className="font-medium text-sm">{link.label}</span>
+                    </button>
+                  )
                 ))}
               </div>
             </motion.div>

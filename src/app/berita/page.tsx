@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { ChevronLeft } from 'lucide-react';
 
 type Item = {
   judul: string;
@@ -95,23 +96,43 @@ export default function BeritaPage() {
 
   if (loading)
     return (
-      <div className="p-6 bg-gradient-to-b from-slate-50 to-white min-h-screen">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(12)].map((_, i) => (
-            <SkeletonCard key={i} />
-          ))}
+      <div className="p-6 bg-gradient-to-b from-orange-50 to-white min-h-screen">
+        <div className="max-w-6xl mx-auto">
+          <button onClick={() => window.history.back()} className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium mb-6 transition-colors">
+            <ChevronLeft className="h-5 w-5" />
+            Kembali
+          </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(12)].map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
         </div>
       </div>
     );
-  if (error) return <div className="p-12 text-center text-red-600 min-h-screen">Error: {error}</div>;
+  if (error) return (
+    <div className="p-12 min-h-screen bg-gradient-to-b from-orange-50 to-white flex flex-col items-center justify-center">
+      <button onClick={() => window.history.back()} className="absolute top-6 left-6 flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium transition-colors">
+        <ChevronLeft className="h-5 w-5" />
+        Kembali
+      </button>
+      <div className="text-center">
+        <p className="text-red-600 text-lg">Error: {error}</p>
+      </div>
+    </div>
+  );
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
-      <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-10 shadow-lg">
+    <main className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-orange-50">
+      <header className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-10 shadow-lg relative">
+        <button onClick={() => window.history.back()} className="absolute top-4 left-4 flex items-center gap-2 text-white hover:text-orange-100 font-medium transition-colors">
+          <ChevronLeft className="h-5 w-5" />
+          Kembali
+        </button>
         <div className="max-w-6xl mx-auto px-4">
-          <div>
+          <div className="text-center">
             <h1 className="text-4xl font-bold mb-2">Berita Jakarta Barat</h1>
-            <p className="text-blue-100 text-lg">Berita terbaru dari Pemerintah Kota Administrasi Jakarta Barat</p>
+            <p className="text-orange-100 text-lg">Berita terbaru dari Pemerintah Kota Administrasi Jakarta Barat</p>
           </div>
         </div>
       </header>
@@ -129,7 +150,7 @@ export default function BeritaPage() {
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm text-slate-600 font-medium">Per halaman:</span>
-            <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 transition-all duration-300 font-medium text-slate-700 hover:border-blue-400">
+            <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 transition-all duration-300 font-medium text-slate-700 hover:border-orange-400">
               <option value={6}>6</option>
               <option value={12}>12</option>
               <option value={24}>24</option>
@@ -138,7 +159,7 @@ export default function BeritaPage() {
             <button 
               onClick={handleRefresh} 
               disabled={refr}
-              className="ml-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-sm hover:shadow-md"
+              className="ml-3 px-4 py-2 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg hover:from-red-700 hover:to-orange-700 text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-sm hover:shadow-md"
             >
               <span className={refr ? "animate-spin" : ""}>↻</span>
               {refr ? "Muat..." : "Segarkan"}
@@ -164,13 +185,13 @@ export default function BeritaPage() {
                 </div>
               </Link>
               <div className="p-5">
-                <div className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">{item.tanggal || 'Tanpa Tanggal'}</div>
-                <h3 className="text-lg font-bold text-slate-900 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
+                <div className="text-xs font-semibold text-orange-600 uppercase tracking-wider mb-1">{item.tanggal || 'Tanpa Tanggal'}</div>
+                <h3 className="text-lg font-bold text-slate-900 line-clamp-2 group-hover:text-orange-600 transition-colors duration-300">
                   <Link href={`/berita/${slugify(item.judul)}`} className="hover:underline">{item.judul}</Link>
                 </h3>
                 <p className="mt-3 text-sm text-slate-600 line-clamp-2 leading-relaxed">{item.ringkasan || 'Tap untuk baca artikel lengkap.'}</p>
                 <div className="mt-4 flex items-center justify-between pt-3 border-t border-slate-100">
-                  <Link href={`/berita/${slugify(item.judul)}`} className="text-sm text-blue-600 font-semibold group-hover:text-blue-700 flex items-center gap-1 transition-colors">
+                  <Link href={`/berita/${slugify(item.judul)}`} className="text-sm text-orange-600 font-semibold group-hover:text-orange-700 flex items-center gap-1 transition-colors">
                     Baca selengkapnya 
                     <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
                   </Link>
@@ -186,7 +207,7 @@ export default function BeritaPage() {
 
       {filtered.length > visible.length && (
         <div className="max-w-6xl mx-auto px-4 pb-12 text-center">
-          <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold" onClick={() => setPerPage((p) => p + 12)}>
+          <button className="px-6 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg hover:shadow-lg hover:from-red-700 hover:to-orange-700 transition-all duration-300 font-semibold" onClick={() => setPerPage((p) => p + 12)}>
             Muat lebih banyak
           </button>
         </div>
