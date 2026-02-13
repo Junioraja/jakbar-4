@@ -142,10 +142,10 @@ export default function JakartaWestTourism() {
       ]
     },
     {
-      type: 'single' as const,
-      id: 'peta-rasa',
+      type: 'link' as const,
       label: 'Kuliner',
-      icon: <Utensils className="h-4 w-4" />
+      icon: <Utensils className="h-4 w-4" />,
+      href: '/kuliner'
     },
     {
       type: 'dropdown' as const,
@@ -182,7 +182,7 @@ export default function JakartaWestTourism() {
     { id: 'home', label: 'Beranda', icon: <Home /> },
     { id: 'museum-hidup', label: 'Museum Hidup', icon: <Landmark /> },
     { id: 'jejak-masa-lalu', label: 'Jejak Masa Lalu', icon: <ScrollText /> },
-    { id: 'peta-rasa', label: 'Kuliner', icon: <Utensils /> },
+    { id: 'peta-rasa', label: 'Kuliner', icon: <Utensils />, href: '/kuliner' },
     { id: 'wajah-jakarta', label: 'Wajah Jakarta', icon: <Users /> },
     { id: 'panduan-jelajah', label: 'Panduan Jelajah', icon: <Route /> },
     { id: 'kamus', label: 'Kamus Budaya', icon: <BookOpen /> },
