@@ -14,31 +14,71 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jakarta Barat - Pusat Chinatown & Kuliner Legendaris",
-  description: "Jelajahi keindahan Jakarta Barat sebagai pusat Chinatown Indonesia dan surga kuliner legendaris. Temukan warisan budaya, wisata kuliner, dan destinasi wisata menarik di Glodok dan sekitarnya.",
-  keywords: ["Jakarta Barat", "Chinatown", "Glodok", "Kuliner Legendaris", "Wisata Jakarta", "Pecinan", "Kuliner Indonesia"],
-  authors: [{ name: "Jakarta Tourism Board" }],
+  title: "Wisata & Kuliner Jakarta Barat Terlengkap 2024 | Jakbar Explore",
+  description: "Panduan lengkap wisata dan kuliner Jakarta Barat. Temukan 100+ rekomendasi tempat makan enak, cafe aesthetic, destinasi wisata, hotel, dan tempat nongkrong terbaik di Tanjung Duren, Puri Indah, PIK, dan sekitarnya.",
+  keywords: ["wisata jakarta barat", "kuliner jakarta barat", "tempat makan jakbar", "cafe jakarta barat", "tanjung duren", "puri indah", "PIK", "pantai indah kapuk", "tempat nongkrong jakarta", "hotel jakarta barat", "wisata murah jakarta", "kuliner enak jakbar"],
+  authors: [{ name: "Jakbar Explore Team" }],
+  creator: "Jakbar Explore",
+  publisher: "Jakbar Explore",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  canonical: "https://jakbar-4.vercel.app/",
+  alternates: {
+    languages: {
+      id: "https://jakbar-4.vercel.app/",
+    },
+  },
   icons: {
-    icon: "/logo.svg",
+    icon: "/favicon.ico",
+    apple: "/images/apple-touch-icon.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Jakbar Explore",
+  },
+  verification: {
+    google: "AKKZ7yzAWuqwOEDovTwVnd9vW_NGDZq55h3GbxBRvCg",
   },
   openGraph: {
-    title: "Jakarta Barat - Pusat Chinatown & Kuliner Legendaris",
-    description: "Jelajahi keindahan Jakarta Barat sebagai pusat Chinatown Indonesia dan surga kuliner legendaris.",
-    url: "https://jakartabarat.com",
-    siteName: "Jakarta Barat Tourism",
     type: "website",
+    locale: "id_ID",
+    url: "https://jakbar-4.vercel.app/",
+    siteName: "Jakbar Explore",
+    title: "Wisata & Kuliner Jakarta Barat Terlengkap 2024",
+    description: "Panduan lengkap wisata dan kuliner Jakarta Barat. Temukan 100+ rekomendasi tempat makan enak, cafe aesthetic, dan destinasi wisata terbaik.",
     images: [{
-      url: "/images/hero-banner.jpg",
-      width: 1440,
-      height: 720,
-      alt: "Jakarta Barat Chinatown"
-    }]
+      url: "/images/og-preview.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Wisata & Kuliner Jakarta Barat",
+      type: "image/jpeg",
+    }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jakarta Barat - Pusat Chinatown & Kuliner Legendaris",
-    description: "Jelajahi keindahan Jakarta Barat sebagai pusat Chinatown Indonesia dan surga kuliner legendaris.",
-    images: ["/images/hero-banner.jpg"]
+    site: "@jakbarexplore",
+    creator: "@jakbarexplore",
+    title: "Wisata & Kuliner Jakarta Barat Terlengkap 2024",
+    description: "Panduan lengkap wisata dan kuliner Jakarta Barat. 100+ rekomendasi tempat makan, cafe, dan destinasi wisata terbaik.",
+    images: ["/images/twitter-preview.jpg"],
+  },
+  manifest: "/manifest.json",
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "format-detection": "telephone=no",
+    "theme-color": "#0d1117",
   },
 };
 
